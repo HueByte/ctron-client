@@ -5,10 +5,10 @@ const PostData = async (username, password) => {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: "username", password: "password" })
+        body: JSON.stringify({ username: "tester", password: "Testing1232" })
     }
 
-    const response = await fetch(`${BaseUrl}api/Login`, requestOptions);
+    const response = await fetch(`${BaseUrl}api/Account/Login`, requestOptions);
     await sleep();
     return response.json();
 }

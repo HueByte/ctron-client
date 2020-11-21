@@ -2,6 +2,7 @@ import './App.css';
 import HomePage from './pages/HomePage/HomePage';
 import ApiFetch from './pages/FetchApiTests/Fetch';
 import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
 import {
   BrowserRouter,
   Route,
@@ -21,6 +22,9 @@ function App() {
       </Route>
       <Route exact path="/Login">
         <Login />
+      </Route>
+      <Route exact path="/Register">
+        <Register />
       </Route>
     </Switch>
   );
