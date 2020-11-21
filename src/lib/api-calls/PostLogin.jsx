@@ -5,7 +5,7 @@ const PostData = async (username, password) => {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: "tester", password: "Testing1232" })
+        body: JSON.stringify({ username: username, password: password })
     }
 
     const response = await fetch(`${BaseUrl}api/Account/Login`, requestOptions);
@@ -14,7 +14,7 @@ const PostData = async (username, password) => {
 }
 
 const sleep = (milisec) => {
-    return new Promise(resolve => setTimeout(resolve, 1000));
+    return new Promise(resolve => setTimeout(resolve, 5000));
 }
 
 export default PostData;
