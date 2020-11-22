@@ -6,9 +6,6 @@ import { Link } from 'react-router-dom';
 const HomePage = () => {
     const userData = JSON.parse(localStorage.getItem('currentUser')) || {};
     const [user, setUser] = useState(userData);
-    useEffect(() => {
-        console.log(JSON.parse(localStorage.getItem('currentUser')));
-    });
 
     return (
         <div className="App">
