@@ -5,31 +5,40 @@ import LoadingFetch from '../components/Loading';
 import LoginDisplay from './LoginDisplay';
 import { Link, Redirect } from 'react-router-dom';
 import LoadingImage from '../../assets/bars.svg';
+import Popup from 'reactjs-popup';
 import './Login.css';
 
 const Login = () => {
-    const [redirect, setRedirect] = useState({
-        redirectHome: false
-    });
+    const [redirect, setRedirect] = useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [loadingState, setLoadingState] = useState({
-        isLoading: false
+    const [loadingState, setLoadingState] = useState(false);
+
+    const [errorModal, setErrorModal] = useState({
+        open: false,
+        message: ''
+    })
+
+    const closeModal = () => setErrorModal({
+        open: false,
+        message: ''
     });
 
     const SendRequest = () => {
-        setLoadingState({ isLoading: true });
+        setLoadingState(true);
         //POST
         PostData(username.username, password.password).then(data => {
-            setLoadingState({ isLoading: false });
-            if(!data.ok) { }
-            else setRedirect({ redirectHome: true });
+            setLoadingState(false);
+            if ( data == null || !data.ok ) {
+                setErrorModal({ open: true, message: 'Something went wrong with logging in' });
+            }
+            else setRedirect(true);
         })
     }
 
-    if (redirect.redirectHome) return <Redirect to="/" />
+    if (redirect) return <Redirect to="/" />
 
-    if (!loadingState.isLoading) {
+    if (!loadingState) {
         return (
             <div className="container">
                 <div className="form-container">
@@ -43,17 +52,27 @@ const Login = () => {
                     </Link>
                     </div>
                 </div>
+                <Popup open={errorModal.open} position="center center" closeOnDocumentClick onClose={closeModal}>
+                    <div className="popup">
+                        <p className="popup-text">{errorModal.message}</p>
+                        <div className="popup-image">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </div>
+                        <div className="popup-button" onClick={closeModal}>
+                            Try again
+                        </div>
+                    </div>
+                </Popup>
             </div>
         )
     }
     else {
         return (
-        <div className="container">
-            <img src={LoadingImage} />
-        </div>
+            <div className="container">
+                <img src={LoadingImage} />
+            </div>
         )
     }
-
 }
 
 export default Login;
