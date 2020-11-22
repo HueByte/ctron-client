@@ -11,6 +11,7 @@ export const AuthLogin = async (username, password) => {
     const response = await fetch(`${BaseUrl}api/Account/Login`, requestOptions)
         .catch(error => console.log('error', error));
 
+    //simulate delay
     await sleep();
     return response;
 }

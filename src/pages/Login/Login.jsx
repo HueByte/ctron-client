@@ -16,7 +16,7 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [loadingState, setLoadingState] = useState(false);
-
+    
     const [errorModal, setErrorModal] = useState({
         open: false,
         message: ''
@@ -29,7 +29,7 @@ const Login = () => {
 
     const SendRequest = () => {
         setLoadingState(true);
-
+        
         //POST
         AuthLogin(username.username, password.password)
             .then(data => {
@@ -43,7 +43,7 @@ const Login = () => {
             })
             .then(data => {
                 //upload data to localStorage and redirect to homepage
-                localStorage.setItem('currentUser', JSON.stringify(data));
+                authContext.setAuthInfo(data);
                 setRedirect(true);
             })
             .catch(() => {
