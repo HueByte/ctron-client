@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { render } from 'react-dom';
 import { AuthLogin } from '../../lib/api-calls/Authentication';
 import LoadingFetch from '../components/Loading';
@@ -6,9 +6,12 @@ import LoginDisplay from './LoginDisplay';
 import { Link, Redirect } from 'react-router-dom';
 import LoadingImage from '../../assets/bars.svg';
 import Popup from 'reactjs-popup';
+import { AuthContext } from '../../lib/api-calls/AuthContext';
 import './Login.css';
 
 const Login = () => {
+    const authContext = useContext(AuthContext);
+    const isAuthenticated = authContext;
     const [redirect, setRedirect] = useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
