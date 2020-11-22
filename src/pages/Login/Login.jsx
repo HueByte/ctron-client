@@ -43,7 +43,7 @@ const Login = () => {
             })
             .then(data => {
                 //upload data to localStorage and redirect to homepage
-                authContext.setAuthInfo(data);
+                authContext.setAuthState(data);
                 setRedirect(true);
             })
             .catch(() => {
@@ -51,6 +51,8 @@ const Login = () => {
                 setErrorModal({ open: true, message: 'Something went wrong with logging in' });
             })
     }
+
+    if (authContext.isAuthenticated()) return <Redirect to="/" />;
 
     if (redirect) return <Redirect to="/" />
 
@@ -62,9 +64,9 @@ const Login = () => {
                     <input onChange={event => setUsername({ username: event.target.value })} className="input-blackbg" type="text'" placeholder="Username" spellCheck="false" />
                     <input onChange={event => setPassword({ password: event.target.value })} className="input-blackbg" type="password" placeholder="Password" />
                     <div className="options">
-                        <div onClick={SendRequest} className="button-login"><i class="fas fa-sign-in-alt"></i> Login</div>
+                        <div onClick={SendRequest} className="button-login"><i className="fas fa-sign-in-alt"></i> Login</div>
                         <Link to="Register" className="button-login">
-                            <i class="fa fa-user" aria-hidden="true"></i> Register
+                            <i className="fa fa-user" aria-hidden="true"></i> Register
                     </Link>
                     </div>
                 </div>
@@ -72,7 +74,7 @@ const Login = () => {
                     <div className="popup">
                         <p className="popup-text">{errorModal.message}</p>
                         <div className="popup-image">
-                            <i class="fa fa-times" aria-hidden="true"></i>
+                            <i className="fa fa-times" aria-hidden="true"></i>
                         </div>
                         <div className="popup-button" onClick={closeModal}>
                             Try again

@@ -16,7 +16,7 @@ const AuthProvider = ({ children }) => {
     }
 
     const isAuthenticated = () => {
-        if(authState.token == null)
+        if(authState == null)
             return false;
         return true;
     }

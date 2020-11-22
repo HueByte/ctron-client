@@ -5,6 +5,7 @@
   .App-logo {
     height: 40vmin;
     pointer-events: none;
+    margin-bottom: 1em;
   }
   
   @media (prefers-reduced-motion: no-preference) {
@@ -32,6 +33,22 @@
     text-decoration: none;
     color: white;
   }
+
+  .button {
+    margin-top: 1em; 
+    text-align: center;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,190,202,1) 0%, rgba(0,212,255,1) 0%, rgba(0,179,175,1) 10%);
+    padding: 7px;
+    border-radius: 5px;
+    transition: 0.5s;
+    -webkit-transition: 0.5s;
+}
+
+.button:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
   
   @keyframes App-logo-spin {
     from {
