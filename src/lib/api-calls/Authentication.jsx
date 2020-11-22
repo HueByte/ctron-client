@@ -1,29 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { BaseUrl } from './ApiRoutes';
 
-export const Login = async (username, password) => {
+export const AuthLogin = async (username, password) => {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: this.username, password: this.password })
+        body: JSON.stringify({ UserName: username, Password: password })
     }
 
-    const response = await fetch(`${BaseUrl}api/Account/Login`, requestOptions);
-    
-    //simulating loading test
+    const response = await fetch(`${BaseUrl}api/Account/Login`, requestOptions)
+        .catch(error => console.log('error', error));
+
     await sleep();
-    
-    const user = response.json();
-    localStorage.setItem('currentUser', user);
-    return user;
+    return response;
 }
 
 const sleep = (milisec) => {
     return new Promise(resolve => setTimeout(resolve, 1000));
 }
-
-export const Logout = () => {
-
-}
-
-export default PostData;

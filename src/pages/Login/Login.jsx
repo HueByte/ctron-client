@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { render } from 'react-dom';
-import PostData from '../../lib/api-calls/PostLogin';
+import { AuthLogin } from '../../lib/api-calls/Authentication';
 import LoadingFetch from '../components/Loading';
 import LoginDisplay from './LoginDisplay';
 import { Link, Redirect } from 'react-router-dom';
@@ -28,7 +28,7 @@ const Login = () => {
         setLoadingState(true);
 
         //POST
-        PostData(username.username, password.password)
+        AuthLogin(username.username, password.password)
             .then(data => {
                 //check if request returned correct response code
                 setLoadingState(false);
