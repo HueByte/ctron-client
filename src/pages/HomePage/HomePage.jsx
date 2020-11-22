@@ -4,20 +4,18 @@ import './HomePage.css';
 import { Link } from 'react-router-dom';
 
 const HomePage = () => {
-
-    const [userName, setUserName] = useState('');
-    
+    const userData = JSON.parse(localStorage.getItem('currentUser')) || {};
+    const [user, setUser] = useState(userData);
     useEffect(() => {
-        setUserName(JSON.parse(localStorage.getItem('curretUser')));
-        console.log(userName);
-    }, [userName]);
+        console.log(JSON.parse(localStorage.getItem('currentUser')));
+    });
 
     return (
         <div className="App">
             <header className="App-header">
                 <img src={logo} className="App-logo" alt="le" />
                 <p>
-                    Welcome {userName}
+                    Welcome {user.userName}
                 </p>
             </header>
         </div>

@@ -8,7 +8,9 @@ const PostData = async (username, password) => {
         body: JSON.stringify({ UserName: username, Password: password })
     }
 
-    const response = await fetch(`${BaseUrl}api/Account/Login`, requestOptions).catch(error => console.log('error', error));
+    const response = await fetch(`${BaseUrl}api/Account/Login`, requestOptions)
+        .catch(error => console.log('error', error));
+
     await sleep();
     return response;
 }
