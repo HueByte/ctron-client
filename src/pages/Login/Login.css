@@ -9,10 +9,6 @@
     flex-direction: column;
 }
 
-.user {
-
-}
-
 .token {
     min-height: fit-content;
     overflow-wrap: break-word;
