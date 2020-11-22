@@ -3,7 +3,6 @@ import React, { useStatem, createContext, useState, Children } from 'react';
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-    console.log("context used");
     const user = JSON.parse(localStorage.getItem('currentUser'));
     const [authState, setAuthState] = useState(user);
     const setAuthInfo = (userData) => {
