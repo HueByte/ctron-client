@@ -26,14 +26,27 @@ const Login = () => {
 
     const SendRequest = () => {
         setLoadingState(true);
+
         //POST
-        PostData(username.username, password.password).then(data => {
-            setLoadingState(false);
-            if ( data == null || !data.ok ) {
+        PostData(username.username, password.password)
+            .then(data => {
+                //check if request returned correct response code
+                setLoadingState(false);
+                if (data == null || !data.ok) {
+                    //throw error if code was wrong
+                    PromiseRejectionEvent('')
+                }
+                else return data.json();
+            })
+            .then(data => {
+                //upload data to localStorage and redirect to homepage
+                localStorage.setItem('currentUser', JSON.stringify(data));
+                setRedirect(true);
+            })
+            .catch(() => {
+                //show modal on error
                 setErrorModal({ open: true, message: 'Something went wrong with logging in' });
-            }
-            else setRedirect(true);
-        })
+            })
     }
 
     if (redirect) return <Redirect to="/" />
