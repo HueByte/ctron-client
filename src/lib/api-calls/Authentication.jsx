@@ -16,11 +16,11 @@ export const AuthLogin = async (username, password) => {
     return response;
 }
 
-export const AuthRegister = async (username, password) => {
+export const AuthRegister = async (username, password, email) => {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ UserName: username, Password: password })
+        body: JSON.stringify({ Email: email, UserName: username, Password: password })
     }
     
     const response = await fetch(`${BaseUrl}api/Account/Register`, requestOptions)
