@@ -49,9 +49,9 @@ const Register = () => {
 
     if (authContext.isAuthenticated()) return <Redirect to="/" />;
 
-    if (redirect) return <Redirect to="/" />;
+    else if (redirect) return <Redirect to="/" />;
 
-    if (!loadingState) {
+    else if (!loadingState) {
         return (
             <div className="container">
                 <div className="form-container">
