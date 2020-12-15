@@ -16,6 +16,21 @@ export const AuthLogin = async (username, password) => {
     return response;
 }
 
+export const AuthRegister = async (username, password) => {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ UserName: username, Password: password })
+    }
+    
+    const response = await fetch(`${BaseUrl}api/Account/Register`, requestOptions)
+        .catch(error => console.log('error', error));
+
+    //simulate delay
+    await sleep();
+    return response;
+
+}
 const sleep = (milisec) => {
     return new Promise(resolve => setTimeout(resolve, 1000));
 }

@@ -19,13 +19,13 @@ export const Routes = () => {
                 <Route exact path="/">
                     <HomePage />
                 </Route>
-                <Route exact path="/Fetch">
+                <Route path="/Fetch">
                     <ApiFetch />
                 </Route>
-                <Route exact path="/Login">
+                <Route path="/Login">
                     <AuthLogin />
                 </Route>
-                <Route exact path="/Register">
+                <Route path="/Register">
                     <Register />
                 </Route>
             </Suspense>
