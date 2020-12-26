@@ -22,6 +22,12 @@ const Register = () => {
         open: false,
         message: ''
     })
+    
+    const handleKeyDown = (event) => {
+        if (event.key === "Enter") {
+            SendRequest();
+        }
+    }
 
     const SendRequest = () => {
         setLoadingState(true);
@@ -29,13 +35,19 @@ const Register = () => {
         AuthRegister(email, username, password)
             .then(data => {
                 setLoadingState(false);
-                if (data == null || !data.ok) {
+                if (data == null || data.status >= 500) {
                     PromiseRejectionEvent('');
                 }
                 else return data.json();
             })
             .then(data => {
-                console.log("worked");
+                console.log(data);
+                if(!data.isSuccess) {
+                    setErrorModal({ open: true, message: data.message });
+                }
+                else {
+                    setRedirect(true);
+                }
                 //TODO 
                 //redirect? what should I do here
                 //setRedirect(true);
@@ -56,16 +68,16 @@ const Register = () => {
             <div className="container">
                 <div className="form-container">
                     <img src="https://www.flaticon.com/svg/static/icons/svg/2317/2317407.svg" style={lock} />
-                    <input onChange={event => setUsername({ username: event.target.value })} className="input-blackbg" type="text'" placeholder="Email" spellCheck="false" />
-                    <input onChange={event => setUsername({ username: event.target.value })} className="input-blackbg" type="text'" placeholder="Username" spellCheck="false" />
-                    <input onChange={event => setPassword({ password: event.target.value })} className="input-blackbg" type="password" placeholder="Password" />
+                    <input onChange={event => setEmail( event.target.value )} onKeyDown={handleKeyDown} className="input-blackbg" type="text'" placeholder="Email" spellCheck="false" />
+                    <input onChange={event => setUsername( event.target.value )} onKeyDown={handleKeyDown} className="input-blackbg" type="text'" placeholder="Username" spellCheck="false" />
+                    <input onChange={event => setPassword( event.target.value )} onKeyDown={handleKeyDown} className="input-blackbg" type="password" placeholder="Password" />
                     <div className="options">
                         <div onClick={SendRequest} className="button-login">
                             <i className="fa fa-user" aria-hidden="true"></i> Register
-                    </div>
-                        <Link to="Login" className="button-login">
-                            <i className="fas fa-sign-in-alt"></i> Go Login
-                    </Link>
+                        </div>
+                        <Link to="/" className="button-login">
+                            <i class="fas fa-home"></i> Home
+                        </Link>
                     </div>
                     <Popup open={errorModal.open} position="center center" closeOnDocumentClick onClose={closeModal}>
                         <div className="popup">

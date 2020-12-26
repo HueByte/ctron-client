@@ -27,24 +27,35 @@ const Login = () => {
         message: ''
     });
 
+    const handleKeyDown = (event) => {
+            if (event.key === "Enter") {
+                SendRequest()
+            }
+        }
+
     const SendRequest = () => {
         setLoadingState(true);
         
         //POST
-        AuthLogin(username.username, password.password)
+        AuthLogin(username, password)
             .then(data => {
                 //check if request returned correct response code
                 setLoadingState(false);
-                if (data == null || !data.ok) {
+                if (data == null || data.status >= 500) {
                     //throw error if code was wrong
                     PromiseRejectionEvent('')
                 }
                 else return data.json();
             })
             .then(data => {
+                if(!data.isSuccess) {
+                    setErrorModal({ open: true, message: data.message });
+                }
                 //upload data to localStorage and redirect to homepage
-                authContext.setAuthState(data);
-                setRedirect(true);
+                else {
+                    authContext.setAuthState(data.data);
+                    setRedirect(true);
+                }
             })
             .catch(() => {
                 //show modal on error
@@ -61,8 +72,8 @@ const Login = () => {
             <div className="container">
                 <div className="form-container">
                     <img src="https://www.flaticon.com/svg/static/icons/svg/2317/2317407.svg" style={lock} />
-                    <input onChange={event => setUsername({ username: event.target.value })} className="input-blackbg" type="text'" placeholder="Username" spellCheck="false" />
-                    <input onChange={event => setPassword({ password: event.target.value })} className="input-blackbg" type="password" placeholder="Password" />
+                    <input onChange={event => setUsername( event.target.value )} onKeyDown={handleKeyDown} className="input-blackbg" type="text'" placeholder="Username" spellCheck="false" />
+                    <input onChange={event => setPassword( event.target.value )} onKeyDown={handleKeyDown} className="input-blackbg" type="password" placeholder="Password" />
                     <div className="options">
                         <div onClick={SendRequest} className="button-login"><i className="fas fa-sign-in-alt"></i> Login</div>
                         <Link to="Register" className="button-login">

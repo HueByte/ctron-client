@@ -16,7 +16,7 @@ export const AuthLogin = async (username, password) => {
     return response;
 }
 
-export const AuthRegister = async (username, password, email) => {
+export const AuthRegister = async (email, username, password) => {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
